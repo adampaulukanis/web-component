@@ -38,6 +38,27 @@ class GreetingMessage extends HTMLElement {
                 target.textContent = '';
             }, 5000);
     }
+
+    /* Create a list of attributes to observe */
+    static get observedAttributes() {
+        return [ 'logout' ];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name !== 'logout') return;
+
+        let btn = document.querySelector('button');
+        if (btn) {
+            btn.removeEventListener('click', this.clickHandler);
+            btn.remove();
+        }
+
+        let target = this.querySelector('.message');
+        if (taget) {
+            let name = this.getAttribute('name');
+            target.textContent = `Bye, ${name ? name : 'friend'}! See you next time.`;
+        }
+    }
 };
 
 if ('customElements' in window) {
